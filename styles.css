@@ -65,3 +65,43 @@ h3 {
     /* background-image: url("./images/pac-man.png"); */
     position: relative;
 }
+
+.blinky {
+    background-color: rgb(167, 21, 21);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.pinky {
+    background-color: rgb(190, 94, 110);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.inky {
+    background-color: rgb(0, 81, 255);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.clyde {
+    background-color: rgb(255, 148, 8);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: relative;
+}   
+
+.ghost-panic {
+    background-color: white;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: relative;
+}

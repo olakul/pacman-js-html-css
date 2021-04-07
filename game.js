@@ -139,21 +139,34 @@ class Ghost {
         this.index = index;
         this.speed = speed;
         this.panicMode = false;
-
+        this.currentIndex = index;
     }
 }
 
 const ghosts = [
-    new Ghost('clyde', 409, 500),
-    new Ghost('pinky', 353, 400),
-    new Ghost('blinky', 348, 300),
-    new Ghost('inky', 404, 200),
+    new Ghost('clyde', 408, 500),
+    new Ghost('pinky', 352, 400),
+    new Ghost('blinky', 347, 300),
+    new Ghost('inky', 403, 200),
 ]
+
+ghosts.forEach(ghost => {
+    squares[ghost.index].classList.add(ghost.name)
+    squares[ghost.index].classList.add('ghost')
+    })
 
 function panicModeOff() {
     ghosts.forEach(ghost => ghost.panicMode = false);
 }
-function panicMode(){
+// function panicMode(){
+//     squares[ghost.currentIndex].classList.add('ghost-panic');
+// }
 
+function checkGameOver() {
+    if (squares[currentIndex].classList.contains('ghost') &&
+        !squares[currentIndex].classList.contains('ghost-panic')) {
+        ghosts.forEach(ghost => clearInterval(ghost.timerId))
+        document.removeEventListener('keyup', movePacman)
+        setTimeout(function(){ alert("Game Over"); }, 500)
+        }
 }
-
