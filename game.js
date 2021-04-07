@@ -1,6 +1,7 @@
 const grid = document.querySelector('.grid');
 const showScore = document.getElementById('score');
 const width = 28; 
+let score = 0;
 
 const layout = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -54,38 +55,105 @@ function drawBoard(){
             squares[i].classList.add('ghost-lair');
         }else if (layout[i] === 3) {
             squares[i].classList.add('power-pill');
+        }else if (layout[i] === 5) {
+            squares[i].classList.add('pac-man')
         }
     }
 }
 drawBoard()
 
-let currentIndex = 485;
+let currentIndex = 459;
 squares[currentIndex].classList.add('pac-man');
-
+console.log(currentIndex % width !== 0, !squares[currentIndex - 1].classList.contains('ghost-lair'),
+!squares[currentIndex - 1].classList.contains('wall'))
 function movePacman(event) {
+    //console.log(event)
+
     squares[currentIndex].classList.remove('pac-man');
     switch(event.keyCode) {
+        // LEFT
       case 37:
-        if(currentIndex % width !== 0)
-        currentIndex -= 1;
+        if(currentIndex % width !== 0 &&
+        !squares[currentIndex - 1].classList.contains('ghost-lair') &&
+        !squares[currentIndex - 1].classList.contains('wall'))
+        currentIndex --;
+
+        if (squares[currentIndex -1] === squares[363]) currentIndex = 391;
         break;
+    
+        // UP
       case 38:
-        if(currentIndex - width >= 0 ) 
+        if(currentIndex - width >= 0 &&
+        !squares[currentIndex - width].classList.contains('ghost-lair') &&
+        !squares[currentIndex - width].classList.contains('wall')) 
         currentIndex -= width;
         break;
+        // RIGHT
       case 39:
-        if(currentIndex % width < width - 1)
-        currentIndex += 1;
+        if(currentIndex % width < width - 1 &&
+        !squares[currentIndex +1 ].classList.contains('ghost-lair') &&
+        !squares[currentIndex +1 ].classList.contains('wall'))
+        currentIndex ++;
+        if (squares[currentIndex +1] === squares[392]) currentIndex = 364;
         break;
+        // DOWN
       case 40:
-        if (currentIndex + width < width * width)
+        if (currentIndex + width < width * width &&
+        !squares[currentIndex - width].classList.contains('ghost-lair') &&
+        !squares[currentIndex - width].classList.contains('wall'))
         currentIndex += width;
         break;
     }
     squares[currentIndex].classList.add('pac-man')
-    // pacDotEaten()
-    // powerPillEaten()
-    // checkForGameOver()
-    // checkForWin()
+    eatPacDot();
+    eatPowerPill();
+    // checkGameOver()
+    // checkWin()
   }
 document.addEventListener('keyup', movePacman)
+
+function eatPacDot() {
+    if (squares[currentIndex].classList.contains('pac-dot')) {
+        score++;
+        showScore.innerHTML = score;
+        squares[currentIndex].classList.remove('pac-dot')
+    }
+}
+
+function eatPowerPill() {
+    if (squares[currentIndex].classList.contains('power-pill')) {
+        score += 10;
+        showScore.innerHTML = score;
+        squares[currentIndex].classList.remove('power-pill');
+        ghosts.forEach(ghost => ghost.panicMode = true)
+        setTimeout(panicModeOff, 10000)
+    }
+}
+
+// // panicMode for ghosts
+// // panicModeOff for ghosts
+
+class Ghost {
+    constructor(name, index, speed){
+        this.name = name;
+        this.index = index;
+        this.speed = speed;
+        this.panicMode = false;
+
+    }
+}
+
+const ghosts = [
+    new Ghost('clyde', 409, 500),
+    new Ghost('pinky', 353, 400),
+    new Ghost('blinky', 348, 300),
+    new Ghost('inky', 404, 200),
+]
+
+function panicModeOff() {
+    ghosts.forEach(ghost => ghost.panicMode = false);
+}
+function panicMode(){
+
+}
+
