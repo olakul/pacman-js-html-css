@@ -151,8 +151,8 @@ const ghosts = [
 ]
 
 ghosts.forEach(ghost => {
-    squares[ghost.index].classList.add(ghost.name)
-    squares[ghost.index].classList.add('ghost')
+    squares[ghost.index].classList.add(ghost.name);
+    squares[ghost.index].classList.add('ghost');
     })
 
 function panicModeOff() {
@@ -165,8 +165,8 @@ function panicModeOff() {
 function checkGameOver() {
     if (squares[currentIndex].classList.contains('ghost') &&
         !squares[currentIndex].classList.contains('ghost-panic')) {
-        ghosts.forEach(ghost => clearInterval(ghost.timerId))
-        document.removeEventListener('keyup', movePacman)
-        setTimeout(function(){ alert("Game Over"); }, 500)
+        ghosts.forEach(ghost => clearInterval(ghost.timerId));
+        document.removeEventListener('keyup', movePacman);
+        setTimeout(function(){ alert("Game Over"); }, 500);
         }
 }
