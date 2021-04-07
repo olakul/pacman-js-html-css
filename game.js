@@ -107,7 +107,7 @@ function movePacman(event) {
     squares[currentIndex].classList.add('pac-man')
     eatPacDot();
     eatPowerPill();
-    // checkGameOver()
+    checkGameOver()
     // checkWin()
   }
 document.addEventListener('keyup', movePacman)
@@ -140,6 +140,7 @@ class Ghost {
         this.speed = speed;
         this.panicMode = false;
         this.currentIndex = index;
+        this.timerId = 0;
     }
 }
 
@@ -162,6 +163,23 @@ function panicModeOff() {
 //     squares[ghost.currentIndex].classList.add('ghost-panic');
 // }
 
+function moveGhost(ghost) {
+    const directions =  [-1, +1, width, -width];
+    let direction = directions[Math.floor(Math.random() * directions.length)];
+
+    ghost.timerId = setInterval(function() {
+        if  (!squares[ghost.currentIndex + direction].classList.contains('ghost') &&
+          !squares[ghost.currentIndex + direction].classList.contains('wall') ) {
+            squares[ghost.currentIndex].classList.remove(ghost.name);
+            squares[ghost.currentIndex].classList.remove('ghost', 'ghost-panic');
+            ghost.currentIndex += direction;
+            squares[ghost.currentIndex].classList.add(ghost.name, 'ghost');
+        } else direction = directions[Math.floor(Math.random() * directions.length)];
+  
+    })
+}
+
+
 function checkGameOver() {
     if (squares[currentIndex].classList.contains('ghost') &&
         !squares[currentIndex].classList.contains('ghost-panic')) {
@@ -169,4 +187,4 @@ function checkGameOver() {
         document.removeEventListener('keyup', movePacman);
         setTimeout(function(){ alert("Game Over"); }, 500);
         }
-}
+    }
