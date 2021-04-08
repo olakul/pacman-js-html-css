@@ -205,8 +205,7 @@ function checkGameOver() {
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         document.removeEventListener('keyup', movePacman);
         setTimeout(function(){ alert("Game Over"); }, 500);
-        // lives -=1;
-        // if (lives)
+    
     }
 }
 
