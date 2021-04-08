@@ -162,31 +162,54 @@ ghosts.forEach(ghost => moveGhost(ghost));
 // function panicMode(){
 //     squares[ghost.ghostCurrentIndex].classList.add('ghost-panic');
 // }
+// function moveGhost(ghost) {
+//     const directions =  [-1, +1, +width, -width];
+//     let direction = directions[Math.floor(Math.random() * directions.length)];
+
+//     ghost.timerId = setInterval(function() {
+//         if  (!squares[ghost.ghostCurrentIndex + direction].classList.contains('ghost') &&
+//           !squares[ghost.ghostCurrentIndex + direction].classList.contains('wall') ) {
+//             squares[ghost.ghostCurrentIndex].classList.remove(ghost.name, 'ghost', 'ghost-panic');
+//             ghost.ghostCurrentIndex += direction;
+//             squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
+//         } else if (squares[ghost.ghostCurrentIndex + direction].classList.contains('pac-dot')) {
+//             squares[ghost.ghostCurrentIndex].classList.remove('pac-dot');
+//             squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
+//             ghost.ghostCurrentIndex += direction;
+//             squares[ghost.ghostCurrentIndex].classList.add('pac-dot');
+            
+            
+//         } else direction = directions[Math.floor(Math.random() * directions.length)];
+            
+
+//         if (ghost.panicMode === true) {
+//             squares[ghost.ghostCurrentIndex].classList.add('ghost-panic');
+//         }
+        
+//         if (ghost.panicMode && squares[ghost.ghostCurrentIndex].classList.contains('pac-man')) {
+//             squares[ghost.ghostCurrentIndex].classList.remove(ghost.name, 'ghost', 'ghost-panic');
+//             ghost.ghostCurrentIndex = ghost.startIndex;
+//             score +=100;
+//             squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
+//         }
+//     checkGameOver()
+//     }, ghost.speed)
+// }
 function moveGhost(ghost) {
     const directions =  [-1, +1, +width, -width];
-    let direction = directions[Math.floor(Math.random() * directions.length)];
-
-    ghost.timerId = setInterval(function() {
+    let direction = directions[Math.floor(Math.random() * directions.length)];    ghost.timerId = setInterval(function() {
         if  (!squares[ghost.ghostCurrentIndex + direction].classList.contains('ghost') &&
           !squares[ghost.ghostCurrentIndex + direction].classList.contains('wall') ) {
             squares[ghost.ghostCurrentIndex].classList.remove(ghost.name, 'ghost', 'ghost-panic');
-            ghost.ghostCurrentIndex += direction;
-            squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
-        } else if (squares[ghost.ghostCurrentIndex + direction].classList.contains('pac-dot')) {
+            if (layout[ghost.ghostCurrentIndex] === 0) {
+                squares[ghost.ghostCurrentIndex].classList.add('pac-dot');
+            }
+            ghost.ghostCurrentIndex += direction; 
             squares[ghost.ghostCurrentIndex].classList.remove('pac-dot');
             squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
-            ghost.ghostCurrentIndex += direction;
-            squares[ghost.ghostCurrentIndex].classList.add('pac-dot');
-            
-            
-        } else direction = directions[Math.floor(Math.random() * directions.length)];
-            
-
-        if (ghost.panicMode === true) {
+        } else direction = directions[Math.floor(Math.random() * directions.length)];        if (ghost.panicMode === true) {
             squares[ghost.ghostCurrentIndex].classList.add('ghost-panic');
-        }
-        
-        if (ghost.panicMode && squares[ghost.ghostCurrentIndex].classList.contains('pac-man')) {
+        }        if (ghost.panicMode && squares[ghost.ghostCurrentIndex].classList.contains('pac-man', 'pac-up', 'pac-down', 'pac-left')) {
             squares[ghost.ghostCurrentIndex].classList.remove(ghost.name, 'ghost', 'ghost-panic');
             ghost.ghostCurrentIndex = ghost.startIndex;
             score +=100;
@@ -195,7 +218,6 @@ function moveGhost(ghost) {
     checkGameOver()
     }, ghost.speed)
 }
-
 
 
 function checkGameOver() {

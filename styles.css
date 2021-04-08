@@ -7,14 +7,14 @@ html {
 .grid {
     display: flex;
     flex-wrap: wrap;
-    width: 560px;
-    height: 560px;
+    min-width: 560px;
+    min-height: 560px;
+    max-width: 560px;
+    max-height: 560px;
     border: solid #FFFF00;
     background-color: rgb(0, 0, 0);
     margin-left: 50px;
     margin-top: 50px;
-    margin-right: 100px;
-    
 }
 
 
