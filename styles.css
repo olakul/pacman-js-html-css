@@ -1,4 +1,5 @@
 html {
+    
     background-color: #FFFF00;
 }
 .grid {
@@ -6,15 +7,16 @@ html {
     flex-wrap: wrap;
     width: 560px;
     height: 560px;
+    
     border: solid #FFFF00;
     background-color: rgb(0, 0, 0);
     margin-left: 50px;
+    margin-top: 50px;
+    
 }
 
 
 #pac-man-logo{
-    margin: 0;
-    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,14 +37,14 @@ h3 {
     justify-content: space-around;
     margin: 0 50px;
 }
-
+    
 .grid div {
     width: 20px;
     height: 20px;
 }
 
 .pac-dot {
-    background-color: transparent;
+    background-color: goldenrod;
     border:  8px solid black;
     box-sizing: border-box;
     position: relative;
@@ -56,15 +58,6 @@ h3 {
     background-color: rgb(218, 100, 32);
     border-radius: 30px;
 }
-
-/* .pac-man {
-    height: 20px;
-    width: 20px;
-
-    border-radius: 50%;
-    background: #F2D648;
-    position: relative;
-} */
 
 .pac-man {
     background-image: url('./images/pac-man.png');
@@ -99,5 +92,23 @@ h3 {
 .ghost-panic {
     background-image: url('./images/panicmode.png');
     background-size: 20px 20px;
+    position: relative;
+}
+
+.pac-up {
+    background-image: url('./images/pac-up.png');
+    background-size: 23px 23px;
+    position: relative;
+}
+
+.pac-down {
+    background-image: url('./images/pac-down.png');
+    background-size: 23px 23px;
+    position: relative;
+}
+
+.pac-left {
+    background-image: url('./images/pac-left.png');
+    background-size: 23px 23px;
     position: relative;
 }
