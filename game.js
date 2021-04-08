@@ -78,7 +78,6 @@ function movePacman(event) {
 
         if (squares[currentIndex -1] === squares[363]) currentIndex = 391;
         break;
-    
         // UP
       case 38:
         
@@ -98,8 +97,8 @@ function movePacman(event) {
         // DOWN
       case 40:
         if (currentIndex + width < width * width &&
-        !squares[currentIndex - width].classList.contains('ghost-lair') &&
-        !squares[currentIndex - width].classList.contains('wall'))
+        !squares[currentIndex + width].classList.contains('ghost-lair') &&
+        !squares[currentIndex + width].classList.contains('wall'))
         currentIndex += width;
         break;
     }
@@ -210,7 +209,7 @@ function checkGameOver() {
 }
 
 function checkWin() {
-    if (score === 274) {
+    if (score === 500) {
       ghosts.forEach(ghost => clearInterval(ghost.timerId));
       document.removeEventListener('keyup', movePacman);
       setTimeout(function(){ alert("You WON!"); }, 500);

@@ -1,3 +1,5 @@
+
+
 html {
     
     background-color: #FFFF00;
@@ -11,6 +13,7 @@ html {
     background-color: rgb(0, 0, 0);
     margin-left: 50px;
     margin-top: 50px;
+    margin-right: 100px;
     
 }
 
@@ -112,3 +115,13 @@ h3 {
     background-size: 23px 23px;
     position: relative;
 }
+
+/* .side p {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 15px;
+    width: 40%;
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    margin-left: 100px;
+} */
