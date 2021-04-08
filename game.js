@@ -186,7 +186,7 @@ function moveGhost(ghost) {
             squares[ghost.ghostCurrentIndex].classList.add('ghost-panic');
         }
         
-        if (ghost.panicMode && squares[ghost.ghostCurrentIndex].classList.contains('pac-man', 'pac-up', 'pac-down', 'pac-left')) {
+        if (ghost.panicMode && squares[ghost.ghostCurrentIndex].classList.contains('pac-man')) {
             squares[ghost.ghostCurrentIndex].classList.remove(ghost.name, 'ghost', 'ghost-panic');
             ghost.ghostCurrentIndex = ghost.startIndex;
             score +=100;

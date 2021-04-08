@@ -98,23 +98,7 @@ h3 {
     position: relative;
 }
 
-.pac-up {
-    background-image: url('./images/pac-up.png');
-    background-size: 23px 23px;
-    position: relative;
-}
 
-.pac-down {
-    background-image: url('./images/pac-down.png');
-    background-size: 23px 23px;
-    position: relative;
-}
-
-.pac-left {
-    background-image: url('./images/pac-left.png');
-    background-size: 23px 23px;
-    position: relative;
-}
 
 /* .side p {
     font-family: 'Press Start 2P', sans-serif;
