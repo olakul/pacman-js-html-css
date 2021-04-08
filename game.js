@@ -1,7 +1,10 @@
 const grid = document.querySelector('.grid');
 const showScore = document.getElementById('score');
 const width = 28; 
+
 let score = 0;
+let lives = 3;
+
 
 const layout = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -55,8 +58,6 @@ function drawBoard(){
             squares[i].classList.add('ghost-lair');
         }else if (layout[i] === 3) {
             squares[i].classList.add('power-pill');
-        }else if (layout[i] === 5) {
-            squares[i].classList.add('pac-man')
         }
     }
 }
@@ -100,11 +101,11 @@ function movePacman(event) {
         currentIndex += width;
         break;
     }
-    squares[currentIndex].classList.add('pac-man')
+    squares[currentIndex].classList.add('pac-man');
     eatPacDot();
     eatPowerPill();
-    checkGameOver()
-    // checkWin()
+    checkGameOver();
+    checkWin()
   }
 document.addEventListener('keyup', movePacman)
 
@@ -112,7 +113,7 @@ function eatPacDot() {
     if (squares[currentIndex].classList.contains('pac-dot')) {
         score++;
         showScore.innerHTML = score;
-        squares[currentIndex].classList.remove('pac-dot')
+        squares[currentIndex].classList.remove('pac-dot');
     }
 }
 
@@ -121,8 +122,8 @@ function eatPowerPill() {
         score += 10;
         showScore.innerHTML = score;
         squares[currentIndex].classList.remove('power-pill');
-        ghosts.forEach(ghost => ghost.panicMode = true)
-        setTimeout(panicModeOff, 10000)
+        ghosts.forEach(ghost => ghost.panicMode = true);
+        setTimeout(panicModeOff, 10000);
     }
 }
 
@@ -141,10 +142,10 @@ class Ghost {
 }
 
 const ghosts = [
-    new Ghost('clyde', 408, 50000),
-    new Ghost('pinky', 352, 40000),
-    new Ghost('blinky', 347, 30000),
-    new Ghost('inky', 403, 20000),
+    new Ghost('clyde', 408, 500),
+    new Ghost('pinky', 352, 400),
+    new Ghost('blinky', 347, 300),
+    new Ghost('inky', 403, 200),
 ]
 
 ghosts.forEach(ghost => {
@@ -155,19 +156,19 @@ ghosts.forEach(ghost => {
 function panicModeOff() {
     ghosts.forEach(ghost => ghost.panicMode = false);
 }
+//move ghosts
 ghosts.forEach(ghost => moveGhost(ghost));
 // function panicMode(){
 //     squares[ghost.ghostCurrentIndex].classList.add('ghost-panic');
 // }
 function moveGhost(ghost) {
-    const directions =  [-1, +1, width, -width];
+    const directions =  [-1, +1, +width, -width];
     let direction = directions[Math.floor(Math.random() * directions.length)];
 
     ghost.timerId = setInterval(function() {
         if  (!squares[ghost.ghostCurrentIndex + direction].classList.contains('ghost') &&
           !squares[ghost.ghostCurrentIndex + direction].classList.contains('wall')) {
-            squares[ghost.ghostCurrentIndex].classList.remove(ghost.name);
-            squares[ghost.ghostCurrentIndex].classList.remove('ghost', 'ghost-panic');
+            squares[ghost.ghostCurrentIndex].classList.remove(ghost.name, 'ghost', 'ghost-panic');
             ghost.ghostCurrentIndex += direction;
             squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
         } else direction = directions[Math.floor(Math.random() * directions.length)];
@@ -179,10 +180,10 @@ function moveGhost(ghost) {
         }
         
         if (ghost.panicMode && squares[ghost.ghostCurrentIndex].classList.contains('pac-man')) {
-            squares[ghost.ghostCurrentIndex].classList.remove(ghost.className, 'ghost', 'ghost-panic');
+            squares[ghost.ghostCurrentIndex].classList.remove(ghost.name, 'ghost', 'ghost-panic');
             ghost.ghostCurrentIndex = ghost.startIndex;
             score +=100;
-            squares[ghost.currentIndex].classList.add(ghost.name, 'ghost');
+            squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
         }
     checkGameOver()
     }, ghost.speed)
@@ -196,6 +197,15 @@ function checkGameOver() {
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         document.removeEventListener('keyup', movePacman);
         setTimeout(function(){ alert("Game Over"); }, 500);
+        // lives -=1;
+        // if (lives)
     }
 }
 
+function checkWin() {
+    if (score === 274) {
+      ghosts.forEach(ghost => clearInterval(ghost.timerId));
+      document.removeEventListener('keyup', movePacman);
+      setTimeout(function(){ alert("You WON!"); }, 500);
+    }
+  }

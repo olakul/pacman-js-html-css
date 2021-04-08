@@ -42,9 +42,10 @@ h3 {
 }
 
 .pac-dot {
-    background-color: goldenrod;
+    background-color: transparent;
     border:  8px solid black;
     box-sizing: border-box;
+    position: relative;
 }
 
 .wall {
