@@ -56,52 +56,47 @@ h3 {
     border-radius: 30px;
 }
 
-.pac-man {
+/* .pac-man {
     height: 20px;
     width: 20px;
 
     border-radius: 50%;
     background: #F2D648;
-    /* background-image: url("./images/pac-man.png"); */
+    position: relative;
+} */
+
+.pac-man {
+    background-image: url('./images/pac-man.png');
+    background-size: 23px 23px;
     position: relative;
 }
 
 .blinky {
-    background-color: rgb(167, 21, 21);
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
+    background-image: url('./images/blinky.png');
+    background-size: 23px 23px;
     position: relative;
 }
 
 .pinky {
-    background-color: rgb(190, 94, 110);
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
+    background-image: url('./images/pinky.png');
+    background-size: 20px 20px;
     position: relative;
 }
 
 .inky {
-    background-color: rgb(0, 81, 255);
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
+    background-image: url('./images/inky.png');
+    background-size: 20px 20px;
     position: relative;
 }
 
 .clyde {
-    background-color: rgb(255, 148, 8);
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
+    background-image: url('./images/clyde.png');
+    background-size: 20px 20px;
     position: relative;
 }   
 
 .ghost-panic {
-    background-color: white;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
+    background-image: url('./images/panicmode.png');
+    background-size: 20px 20px;
     position: relative;
 }

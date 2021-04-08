@@ -64,11 +64,7 @@ drawBoard()
 
 let currentIndex = 459;
 squares[currentIndex].classList.add('pac-man');
-console.log(currentIndex % width !== 0, !squares[currentIndex - 1].classList.contains('ghost-lair'),
-!squares[currentIndex - 1].classList.contains('wall'))
 function movePacman(event) {
-    //console.log(event)
-
     squares[currentIndex].classList.remove('pac-man');
     switch(event.keyCode) {
         // LEFT
@@ -134,50 +130,64 @@ function eatPowerPill() {
 // // panicModeOff for ghosts
 
 class Ghost {
-    constructor(name, index, speed){
+    constructor(name, startIndex, speed){
         this.name = name;
-        this.index = index;
+        this.startIndex = startIndex;
         this.speed = speed;
         this.panicMode = false;
-        this.currentIndex = index;
-        this.timerId = 0;
+        this.ghostCurrentIndex = startIndex;
+        this.timerId = NaN;
     }
 }
 
 const ghosts = [
-    new Ghost('clyde', 408, 500),
-    new Ghost('pinky', 352, 400),
-    new Ghost('blinky', 347, 300),
-    new Ghost('inky', 403, 200),
+    new Ghost('clyde', 408, 50000),
+    new Ghost('pinky', 352, 40000),
+    new Ghost('blinky', 347, 30000),
+    new Ghost('inky', 403, 20000),
 ]
 
 ghosts.forEach(ghost => {
-    squares[ghost.index].classList.add(ghost.name);
-    squares[ghost.index].classList.add('ghost');
+    squares[ghost.ghostCurrentIndex].classList.add(ghost.name);
+    squares[ghost.ghostCurrentIndex].classList.add('ghost');
     })
 
 function panicModeOff() {
     ghosts.forEach(ghost => ghost.panicMode = false);
 }
+ghosts.forEach(ghost => moveGhost(ghost));
 // function panicMode(){
-//     squares[ghost.currentIndex].classList.add('ghost-panic');
+//     squares[ghost.ghostCurrentIndex].classList.add('ghost-panic');
 // }
-
 function moveGhost(ghost) {
     const directions =  [-1, +1, width, -width];
     let direction = directions[Math.floor(Math.random() * directions.length)];
 
     ghost.timerId = setInterval(function() {
-        if  (!squares[ghost.currentIndex + direction].classList.contains('ghost') &&
-          !squares[ghost.currentIndex + direction].classList.contains('wall') ) {
-            squares[ghost.currentIndex].classList.remove(ghost.name);
-            squares[ghost.currentIndex].classList.remove('ghost', 'ghost-panic');
-            ghost.currentIndex += direction;
-            squares[ghost.currentIndex].classList.add(ghost.name, 'ghost');
+        if  (!squares[ghost.ghostCurrentIndex + direction].classList.contains('ghost') &&
+          !squares[ghost.ghostCurrentIndex + direction].classList.contains('wall')) {
+            squares[ghost.ghostCurrentIndex].classList.remove(ghost.name);
+            squares[ghost.ghostCurrentIndex].classList.remove('ghost', 'ghost-panic');
+            ghost.ghostCurrentIndex += direction;
+            squares[ghost.ghostCurrentIndex].classList.add(ghost.name, 'ghost');
         } else direction = directions[Math.floor(Math.random() * directions.length)];
   
-    })
+    
+
+        if (ghost.panicMode === true) {
+            squares[ghost.ghostCurrentIndex].classList.add('ghost-panic');
+        }
+        
+        if (ghost.panicMode && squares[ghost.ghostCurrentIndex].classList.contains('pac-man')) {
+            squares[ghost.ghostCurrentIndex].classList.remove(ghost.className, 'ghost', 'ghost-panic');
+            ghost.ghostCurrentIndex = ghost.startIndex;
+            score +=100;
+            squares[ghost.currentIndex].classList.add(ghost.name, 'ghost');
+        }
+    checkGameOver()
+    }, ghost.speed)
 }
+
 
 
 function checkGameOver() {
@@ -186,5 +196,6 @@ function checkGameOver() {
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         document.removeEventListener('keyup', movePacman);
         setTimeout(function(){ alert("Game Over"); }, 500);
-        }
     }
+}
+
